@@ -26,6 +26,7 @@ live at: http://keyboardfire.com/lichoose/
         $fh = fopen('./lichoose.txt', 'r');
         $time = (int) fgets($fh);
         $rand = (int) fgets($fh);
+        fclose($fh);
     }
 ?><!DOCTYPE html>
 <html lang='en'>
