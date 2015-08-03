@@ -9,6 +9,14 @@ live at: http://keyboardfire.com/lichoose/
 
 --><?php
     if (isset($_POST['spin'])) {
+        $fh = fopen('./lichoose.txt', 'r');
+        $time = (int) fgets($fh);
+        if ($time > time()) {
+            header('Refresh: 0');
+            die();
+        }
+        fclose($fh);
+
         $fh = fopen('./lichoose.txt', 'w');
         $time = time() + 15;
         $rand = mt_rand(0, 6);
@@ -18,7 +26,6 @@ live at: http://keyboardfire.com/lichoose/
         $fh = fopen('./lichoose.txt', 'r');
         $time = (int) fgets($fh);
         $rand = (int) fgets($fh);
-        fclose($fh);
     }
 ?><!DOCTYPE html>
 <html lang='en'>
