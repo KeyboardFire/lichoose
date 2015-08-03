@@ -53,6 +53,19 @@
                 top: 2px;
             }
 
+            p#help {
+                max-width: 500px;
+                margin-bottom: 20px;
+            }
+
+            div#wrapper {
+                background-color: #EEE;
+                border: 2px solid #303030;
+                border-radius: 10px;
+                padding: 10px;
+                max-width: 500px;
+            }
+
             div#msg {
                 float: left;
                 margin-right: 4px;
@@ -123,39 +136,45 @@
         </script>
     </head>
     <body>
-        <div id='msg'>You're playing...</div>
-        <ul id='variants'>
-            <li><span class='icon'>+</span> Standard</li>
-            <li><span class='icon'>'</span> Chess960</li>
-            <li><span class='icon'>(</span> King of the Hill</li>
-            <li><span class='icon'>.</span> Three-check</li>
-            <li><span class='icon'>@</span> Antichess</li>
-            <li><span class='icon'>&gt;</span> Atomic</li>
-            <li><span class='icon'>_</span> Horde</li>
-        </ul>
-        <div style='clear: both; height: 10px'></div>
-        <?php if ($time > time()) { ?>
-            <p id='spin' style='font-size: 12px; color: grey'>
-                Next spin in <span id='time' style='font-style: italic'>[loading...]</span> seconds
-            </p>
-            <script>
-                var time = <?php echo($time); ?>;
-                var intr = setInterval(function() {
-                    var waitTime = time - Math.floor((+new Date) / 1000);
-                    if (waitTime <= 0) {
-                        spin();
-                        $('#spin').text('Hold on!');
-                        clearInterval(intr);
-                    } else {
-                        $('#time').text(waitTime);
-                    }
-                }, 200);
-            </script>
-        <?php } else { ?>
-            <form id='spin' action='' method='POST'>
-                <button name='spin' type='submit'>Spin the wheel!</button>
-            </form>
-            <script> checkFunc(); </script>
-        <?php } ?>
+        <p id='help'>For when you can't decide which chess variant to play.
+        Send a link to this page to a friend, and you'll both see the wheel
+        spin at the same time and land on the same result. Refresh the page
+        once you've seen the result if you want to spin again.</p>
+        <div id='wrapper'>
+            <div id='msg'>You're playing...</div>
+            <ul id='variants'>
+                <li><span class='icon'>+</span> Standard</li>
+                <li><span class='icon'>'</span> Chess960</li>
+                <li><span class='icon'>(</span> King of the Hill</li>
+                <li><span class='icon'>.</span> Three-check</li>
+                <li><span class='icon'>@</span> Antichess</li>
+                <li><span class='icon'>&gt;</span> Atomic</li>
+                <li><span class='icon'>_</span> Horde</li>
+            </ul>
+            <div style='clear: both; height: 10px'></div>
+            <?php if ($time > time()) { ?>
+                <p id='spin' style='font-size: 12px; color: grey'>
+                    Next spin in <span id='time'>[loading...]</span> seconds
+                </p>
+                <script>
+                    var time = <?php echo($time); ?>;
+                    var intr = setInterval(function() {
+                        var waitTime = time - Math.floor((+new Date) / 1000);
+                        if (waitTime <= 0) {
+                            spin();
+                            $('#spin').text('Hold on!');
+                            clearInterval(intr);
+                        } else {
+                            $('#time').text(waitTime);
+                        }
+                    }, 200);
+                </script>
+            <?php } else { ?>
+                <form id='spin' action='' method='POST'>
+                    <button name='spin' type='submit'>Spin the wheel!</button>
+                </form>
+                <script> checkFunc(); </script>
+            <?php } ?>
+        </div>
     </body>
 </html>
