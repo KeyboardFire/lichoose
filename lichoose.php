@@ -47,7 +47,11 @@
                 font-weight: normal;
                 font-style: normal;
             }
-            span.icon { font-family: 'lichess'; }
+            span.icon {
+                font-family: 'lichess';
+                position: relative;
+                top: 2px;
+            }
 
             div#msg {
                 float: left;
