@@ -81,7 +81,7 @@ live at: http://keyboardfire.com/lichoose/
                 vs.first().stop().animate({ marginTop: 0 }, 200, 'swing', function() {
                     vs.first().animate({
                         marginTop: -(vs.first().outerHeight(true) * animCount)
-                    }, 5000, 'easeOutQuad');
+                    }, 5000, 'easeOutQuad', checkFunc);
                 });
             }
 
@@ -101,6 +101,20 @@ live at: http://keyboardfire.com/lichoose/
                 };
                 panFunc();
             });
+
+            function checkFunc() {
+                $.ajax({
+                    url: 'lichoose.txt',
+                    success: function(data) {
+                        if ((+data.split('\n')[0]) > ((+new Date) / 1000)) {
+                            location.reload();
+                        } else {
+                            setTimeout(checkFunc, 1000);
+                        }
+                    },
+                    cache: false
+                });
+            }
         </script>
     </head>
     <body>
@@ -136,22 +150,7 @@ live at: http://keyboardfire.com/lichoose/
             <form id='spin' action='' method='POST'>
                 <button name='spin' type='submit'>Spin the wheel!</button>
             </form>
-            <script>
-                var checkFunc = function() {
-                    $.ajax({
-                        url: 'lichoose.txt',
-                        success: function(data) {
-                            if ((+data.split('\n')[0]) > ((+new Date) / 1000)) {
-                                location.reload();
-                            } else {
-                                setTimeout(checkFunc, 1000);
-                            }
-                        },
-                        cache: false
-                    });
-                };
-                checkFunc();
-            </script>
+            <script> checkFunc(); </script>
         <?php } ?>
     </body>
 </html>
