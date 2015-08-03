@@ -1,13 +1,11 @@
-<!--
+<?php
+    // lichoose.php
+    // ============
+    // author: Keyboard Fire <andy@keyboardfire.com>
+    // date: Oct 02, 2015
+    // license: MIT
+    // live at: http://keyboardfire.com/lichoose/
 
-lichoose.php
-============
-author: Keyboard Fire <andy@keyboardfire.com>
-date: Oct 02, 2015
-license: MIT
-live at: http://keyboardfire.com/lichoose/
-
---><?php
     if (isset($_POST['spin'])) {
         $fh = fopen('./lichoose.txt', 'r');
         $time = (int) fgets($fh);
@@ -22,6 +20,9 @@ live at: http://keyboardfire.com/lichoose/
         $rand = mt_rand(0, 6);
         fwrite($fh, $time . "\n" . $rand . "\n");
         fclose($fh);
+
+        header('Location: ' . $_SERVER['PHP_SELF']);
+        die();
     } else {
         $fh = fopen('./lichoose.txt', 'r');
         $time = (int) fgets($fh);
