@@ -130,12 +130,16 @@ live at: http://keyboardfire.com/lichoose/
             </form>
             <script>
                 var checkFunc = function() {
-                    $.get('lichoose.txt', function(data) {
-                        if ((+data.split('\n')[0]) > ((+new Date) / 1000)) {
-                            location.reload();
-                        } else {
-                            setTimeout(checkFunc, 1000);
-                        }
+                    $.ajax({
+                        url: 'lichoose.txt',
+                        success: function(data) {
+                            if ((+data.split('\n')[0]) > ((+new Date) / 1000)) {
+                                location.reload();
+                            } else {
+                                setTimeout(checkFunc, 1000);
+                            }
+                        },
+                        cache: false
                     });
                 };
                 checkFunc();
